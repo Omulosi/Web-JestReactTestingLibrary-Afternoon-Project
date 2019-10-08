@@ -38,26 +38,64 @@ describe('Counter component', () => {
   });
 
   it('can decrement the count by one by clicking decrement', () => {
-    // implement
+    const decButton = tools.queryByTestId('decButton');
+
+    rtl.fireEvent.click(decButton);
+    expect(tools.queryByText(/0/)).not.toBeInTheDocument();
+    expect(tools.queryByText(/-1/)).toBeInTheDocument();
   });
 
   it('can reset the count clicking rest', () => {
-    // implement
+    const reset = tools.queryByTestId('resetButton');
+
+    rtl.fireEvent.click(reset);
+    expect(tools.queryByText(/0/)).toBeInTheDocument();
   });
 
   it('prevents the count from going over an upper limit', () => {
-    // implement
+    
+    const incButton = tools.queryByTestId('incButton');
+
+    for (let i = 0; i <= 100; i++) {
+      if (i === 100) {
+        rtl.fireEvent.click(incButton);
+        expect(tools.queryByText(/101/)).not.toBeInTheDocument();
+      }
+    }
   });
 
   it('prevents the count from going under a lower limit', () => {
     // implement
+    const decButton = tools.queryByTestId('decButton');
+    for (let i = 0; i >= -100; i--) {
+      if (i === -100) {
+        rtl.fireEvent.click(decButton);
+        expect(tools.queryByText(/-101/)).not.toBeInTheDocument();
+      }
+    }
   });
 
   it('shows a warning once we hit the upper limit of the counter', () => {
     // implement
+    const incButton = tools.queryByTestId('incButton');
+    for (let i = 0; i <= 100; i++) {
+      if (i === 100) {
+        rtl.fireEvent.click(incButton);
+        expect(tools.queryByText(/That's as high as Peter's count will go/))
+          .toBeInTheDocument();
+      }
+    }
   });
 
   it('shows a warning once we hit the lower limit of the counter', () => {
     // implement
+    const decButton = tools.queryByTestId('decButton');
+    for (let i = 0; i >= -100; i--) {
+      if (i === -100) {
+        rtl.fireEvent.click(decButton);
+        expect(tools.queryByText(/That's as low as Peter's count will go/))
+          .toBeInTheDocument();
+      }
+    }
   });
 });

@@ -27,7 +27,17 @@ describe('sum', () => {
 });
 
 describe('multiply', () => {
-  // write tests! <================================================
+  it('throws if fed no arguments', () => {
+    expect(helpers.multiply()).toThrow();
+  });
+
+  it('throws if any argument is not a number', () => {
+    expect(helpers.multiply('a', 2)).toThrow();
+  });
+
+  it('correctly multiplies two nums', () => {
+    expect(helpers.multiply(2,5)).toBe(10);
+  });
 });
 
 describe('personMaker', () => {
@@ -40,5 +50,12 @@ describe('personMaker', () => {
       });
   });
 
-  // write more tests! <===========================================
+  it('makes a person with name of paul', () => {
+    expect(helpers.personMaker('paul', 4)).toMatch(/paul/);
+  });
+
+  it('makes a person with age equal to 4', () => {
+    expect(helpers.personMaker('neema', 5)).toEqual(5);
+  });
+
 });
